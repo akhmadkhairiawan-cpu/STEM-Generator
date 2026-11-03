@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STEM GENERATOR AI</title>
+<style>
+:root{--navy:#101a3a;--blue:#4263eb;--cyan:#28c6d8;--purple:#7950d8;--ink:#18223b;--muted:#68738b;--bg:#f4f6fc;--line:#e5e9f3;--white:#fff;--shadow:0 18px 50px rgba(30,45,90,.10)}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--ink)}
+button,input,textarea,select{font:inherit}button{cursor:pointer;border:0}
+.topbar{height:70px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 max(4vw,20px);position:sticky;top:0;z-index:10}
+.brand{display:flex;align-items:center;gap:11px;font-weight:850;letter-spacing:.3px;color:var(--navy)}.brandmark{width:39px;height:39px;border-radius:13px;background:linear-gradient(135deg,var(--blue),var(--purple));display:grid;place-items:center;color:white;font-size:21px;box-shadow:0 8px 18px #4263eb44}
+.homebtn{background:#f0f3fb;color:#35405c;border:1px solid var(--line);padding:10px 16px;border-radius:12px;font-weight:700}
+main{max-width:1120px;margin:0 auto;padding:34px 22px 70px}.screen{display:none}.screen.active{display:block;animation:fade .28s ease}@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.hero{min-height:570px;border-radius:30px;background:radial-gradient(circle at 80% 20%,#5a6cf4 0,transparent 32%),linear-gradient(125deg,#111b43,#292b72 65%,#4b3d9d);color:#fff;padding:clamp(30px,7vw,78px);display:grid;grid-template-columns:1.15fr .85fr;align-items:center;gap:30px;overflow:hidden;position:relative;box-shadow:var(--shadow)}
+.eyebrow{color:#a9eefa;font-size:12px;letter-spacing:2px;font-weight:800}.hero h1{font-size:clamp(38px,6vw,68px);line-height:1.02;margin:16px 0}.hero p{color:#dbe2ff;line-height:1.7;max-width:570px}.heroart{font-size:clamp(100px,17vw,190px);text-align:center;filter:drop-shadow(0 20px 20px #0005);transform:rotate(-7deg)}
+.btn{padding:13px 21px;border-radius:13px;font-weight:800;transition:.2s}.btn:hover{transform:translateY(-2px);filter:brightness(1.04)}.primary{background:linear-gradient(110deg,var(--blue),var(--purple));color:white;box-shadow:0 9px 22px #5369d944}.secondary{background:#eef1fa;color:#36415d}.outline{background:#fff;border:1px solid var(--line);color:#36415d}
+.hero .primary{background:linear-gradient(110deg,#35d4db,#5e8bff);color:#0e1c44;margin-top:15px}
+.progress{display:flex;gap:7px;margin:5px 0 27px}.progress span{height:5px;flex:1;border-radius:9px;background:#dfe4f1}.progress span.done{background:linear-gradient(90deg,var(--blue),var(--cyan))}
+.pagehead{margin:10px 0 25px}.pagehead .kicker{color:var(--blue);font-size:12px;font-weight:850;letter-spacing:1.5px}.pagehead h2{font-size:clamp(27px,4vw,38px);margin:7px 0}.pagehead p{color:var(--muted);margin:0;line-height:1.6}
+.panel{background:white;border:1px solid var(--line);border-radius:22px;padding:clamp(20px,4vw,34px);box-shadow:var(--shadow)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.level{background:#fff;border:1.5px solid var(--line);border-radius:17px;padding:18px;text-align:left;min-height:115px;transition:.2s}.level strong{display:block;font-size:16px;margin:7px 0}.level small{color:var(--muted)}.level.selected{border-color:var(--blue);background:#f2f5ff;box-shadow:0 0 0 3px #4263eb18}.level .emoji{font-size:25px}
+.field{margin:19px 0}.field label{display:block;font-weight:750;margin-bottom:8px}.field small{display:block;color:var(--muted);margin-top:6px}.field input,.field textarea,.field select{width:100%;border:1px solid #dce2ef;border-radius:13px;padding:14px 15px;background:#fbfcff;color:var(--ink);outline:none}.field textarea{min-height:120px;resize:vertical}.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--blue);box-shadow:0 0 0 3px #4263eb17}
+.actions{display:flex;justify-content:space-between;gap:12px;margin-top:25px}.actions .right{margin-left:auto}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.idea{background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:20px;text-align:left}.idea.selected{border-color:var(--blue);background:#f4f6ff;box-shadow:0 0 0 3px #4263eb17}.idea h3{margin:8px 0}.idea p{color:var(--muted);line-height:1.5;margin:8px 0}.tag{display:inline-block;background:#edf1ff;color:#4359c7;border-radius:20px;padding:5px 9px;font-size:11px;font-weight:800;margin:3px 4px 3px 0}
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}.stat{background:#fff;border:1px solid var(--line);border-radius:15px;padding:15px}.stat small{color:var(--muted)}.stat strong{display:block;margin-top:6px}
+.tools{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.tool{background:#fff;border:1px solid var(--line);border-radius:20px;padding:23px;box-shadow:var(--shadow)}.tool .toolicon{font-size:32px}.tool h3{margin:10px 0 6px}.tool p{color:var(--muted);line-height:1.5;min-height:48px}.tool button{margin-top:9px}
+.preview{background:#fbfcff;border:1px solid var(--line);border-radius:14px;padding:20px;max-height:430px;overflow:auto;line-height:1.6}.preview h3{margin-top:18px}.preview table{border-collapse:collapse;width:100%;font-size:13px}.preview td,.preview th{border:1px solid #dce2ef;padding:8px;vertical-align:top}.preview th{background:#edf1ff}
+.footer{color:#8b94a8;text-align:center;font-size:12px;margin-top:28px}
+@media(max-width:760px){.hero{grid-template-columns:1fr}.heroart{font-size:110px;order:-1}.grid{grid-template-columns:repeat(2,1fr)}.cards,.tools{grid-template-columns:1fr}.summary{grid-template-columns:repeat(2,1fr)}main{padding:22px 14px 50px}.topbar{padding:0 14px}}
+@media(max-width:420px){.grid{grid-template-columns:1fr 1fr}.actions{flex-wrap:wrap}.actions .btn{flex:1}}
+</style>
+</head>
+<body>
+<header class="topbar">
+ <div class="brand"><div class="brandmark">✦</div><span>STEM GENERATOR <span style="color:#6b58d8">AI</span></span></div>
+ <button class="homebtn" onclick="goHome()">⌂ &nbsp; Beranda</button>
+</header>
+<main>
+<section id="home" class="screen active">
+ <div class="hero">
+  <div><div class="eyebrow">SMART STEM LEARNING DESIGNER</div><h1>STEM<br>GENERATOR AI</h1><p>Ubah masalah nyata di sekitar peserta didik menjadi proyek sains, teknologi, rekayasa, dan matematika yang kreatif, kontekstual, serta bermakna.</p><button class="btn primary" onclick="go(1)">MULAI MERANCANG &nbsp; →</button></div>
+  <div class="heroart">🧑‍🔬<br>🧪🤖</div>
+ </div>
+ <div class="footer">Rancang • Eksplorasi • Ciptakan Solusi</div>
+</section>
+
+<section id="step1" class="screen">
+ <div class="progress"><span class="done"></span><span></span><span></span><span></span><span></span></div>
+ <div class="pagehead"><div class="kicker">LANGKAH 01 / 04</div><h2>Pilih jenjang dan kelas</h2><p>Tentukan tingkat pendidikan agar ide proyek dan aktivitas sesuai dengan perkembangan peserta didik.</p></div>
+ <div class="panel">
+  <div class="grid" id="classGrid"></div>
+  <div class="actions"><button class="btn secondary" onclick="goHome()">← Beranda</button><button class="btn primary right" onclick="nextFromClass()">Lanjut →</button></div>
+ </div>
+</section>
+
+<section id="step2" class="screen">
+ <div class="progress"><span class="done"></span><span class="done"></span><span></span><span></span><span></span></div>
+ <div class="pagehead"><div class="kicker">LANGKAH 02 / 04</div><h2>Temukan masalah, ciptakan solusi!</h2><p>Ceritakan masalah nyata yang ingin diangkat menjadi kegiatan STEM.</p></div>
+ <div class="panel">
+  <div class="field"><label>Masalah yang ditemukan *</label><textarea id="problem" placeholder="Contoh: Sampah plastik menumpuk di lingkungan sekolah dan belum dikelola dengan baik."></textarea><small>Tuliskan masalah secara spesifik. Semakin jelas masalahnya, semakin relevan rekomendasi proyeknya.</small></div>
+  <div class="field"><label>Lokasi atau konteks permasalahan (opsional)</label><input id="context" placeholder="Contoh: lingkungan sekolah, rumah, atau masyarakat sekitar"></div>
+  <div class="field"><label>Informasi tambahan (opsional)</label><textarea id="extra" placeholder="Ceritakan kondisi, penyebab, atau kebutuhan khusus yang perlu diperhatikan."></textarea></div>
+  <div class="actions"><button class="btn secondary" onclick="go(1)">← Kembali</button><button class="btn primary right" onclick="makeIdeas()">Lanjut →</button></div>
+ </div>
+</section>
+
+<section id="step3" class="screen">
+ <div class="progress"><span class="done"></span><span class="done"></span><span class="done"></span><span></span><span></span></div>
+ <div class="pagehead"><div class="kicker">LANGKAH 03 / 04</div><h2>Pilih ide proyek STEM</h2><p>Berikut rekomendasi awal berdasarkan masalah dan kelas yang dipilih. Pilih satu judul untuk dikembangkan.</p></div>
+ <div id="ideaList" class="cards"></div>
+ <div class="actions"><button class="btn secondary" onclick="go(2)">← Kembali</button><div class="right" style="display:flex;gap:10px"><button class="btn outline" onclick="makeIdeas(true)">↻ Generate ulang</button><button class="btn primary" onclick="nextFromIdea()">Lanjut →</button></div></div>
+</section>
+
+<section id="step4" class="screen">
+ <div class="progress"><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span></span></div>
+ <div class="pagehead"><div class="kicker">LANGKAH 04 / 04</div><h2>Atur jumlah pertemuan</h2><p>Tentukan durasi proyek. Sistem akan membagi tahapan kegiatan secara berurutan.</p></div>
+ <div class="panel">
+  <div class="field"><label>Jumlah pertemuan</label><select id="meetings"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>12</option><option>16</option></select></div>
+  <div class="field"><label>Alokasi JP setiap pertemuan</label><input type="number" id="jp" min="1" max="12" value="2"></div>
+  <div class="field"><label>Durasi setiap JP (menit)</label><input type="number" id="minutes" min="15" max="120" value="35"></div>
+  <div class="actions"><button class="btn secondary" onclick="go(3)">← Kembali</button><button class="btn primary right" onclick="finishSetup()">Buat Proyek STEM →</button></div>
+ </div>
+</section>
+
+<section id="dashboard" class="screen">
+ <div class="pagehead"><div class="kicker">WORKSPACE PROYEK</div><h2>Proyek STEM Anda siap dirancang</h2><p>Kelola dan unduh perangkat kegiatan STEM dari satu tempat.</p></div>
+ <div class="summary" id="summary"></div>
+ <div class="tools">
+  <div class="tool"><div class="toolicon">📘</div><h3>Modul Ajar</h3><p>Modul pelaksanaan proyek, integrasi STEM, alat bahan, estimasi biaya, langkah kerja, dan asesmen.</p><button class="btn primary" onclick="openOutput('module')">Buat Modul Ajar →</button></div>
+  <div class="tool"><div class="toolicon">🎨</div><h3>Pojok Baca</h3><p>Poster vertikal rasio 1:2 dengan ilustrasi tematik dan ruang putih luas di bagian tengah.</p><button class="btn primary" onclick="openOutput('poster')">Buat Poster JPG →</button></div>
+  <div class="tool"><div class="toolicon">🗓️</div><h3>Tabel Moderasi</h3><p>Rencana kegiatan harian per pertemuan lengkap dengan tahap, pengampu, alokasi JP, aktivitas, dan bukti.</p><button class="btn primary" onclick="openOutput('moderation')">Buat Tabel Moderasi →</button></div>
+  <div class="tool"><div class="toolicon">📝</div><h3>LKPD</h3><p>Prompt desain LKPD berbeda untuk setiap pertemuan, siap disalin ke Canva AI atau generator desain.</p><button class="btn primary" onclick="openOutput('lkpd')">Buat Prompt LKPD →</button></div>
+ </div>
+ <div class="actions"><button class="btn secondary" onclick="go(4)">← Ubah jumlah pertemuan</button><button class="btn outline right" onclick="editProject()">Edit data proyek</button></div>
+</section>
+
+<section id="output" class="screen">
+ <div class="pagehead"><div class="kicker">HASIL GENERATOR</div><h2 id="outputTitle">Pratinjau</h2><p id="outputDesc"></p></div>
+ <div class="panel">
+  <div class="actions" style="margin-top:0;margin-bottom:18px"><button class="btn secondary" onclick="go(5)">← Dashboard</button><button class="btn primary right" id="downloadBtn">Unduh</button></div>
+  <div id="preview" class="preview"></div>
+ </div>
+</section>
+</main>
+<script>
+const state={level:'',grade:'',problem:'',context:'',extra:'',ideas:[],selected:null,meetings:3,jp:2,minutes:35};
+const stages=['Orientasi masalah dan eksplorasi','Investigasi dan pengumpulan informasi','Mengembangkan ide dan merancang solusi','Membangun serta menguji purwarupa','Evaluasi, perbaikan, dan presentasi'];
+const $=id=>document.getElementById(id);
+function go(n){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));let id=n===0?'home':n===5?'dashboard':'step'+n;$(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function goHome(){go(0)}
+function buildClasses(){let groups=[['TK/PAUD','🧸',['TK A','TK B']],['SD/MI','📚',['Kelas 1','Kelas 2','Kelas 3','Kelas 4','Kelas 5','Kelas 6']],['SMP/MTs','🔬',['Kelas 7','Kelas 8','Kelas 9']],['SMA/MA/SMK','🎓',['Kelas 10','Kelas 11','Kelas 12']]];let html='';groups.forEach(([level,emoji,grades])=>grades.forEach(g=>html+=`<button class="level ${state.grade===g?'selected':''}" onclick="selectClass('${level}','${g}')"><span class="emoji">${emoji}</span><strong>${g}</strong><small>${level}</small></button>`));$('classGrid').innerHTML=html}
+function selectClass(l,g){state.level=l;state.grade=g;buildClasses()}
+function nextFromClass(){if(!state.grade)return alert('Silakan pilih jenjang dan kelas terlebih dahulu.');go(2)}
+function makeIdeas(regen=false){let p=$('problem').value.trim();if(!p)return alert('Masukkan masalah yang ingin diangkat menjadi proyek STEM.');state.problem=p;state.context=$('context').value.trim();state.extra=$('extra').value.trim();let words=p.toLowerCase();let ideas;
+if(/sampah|plastik|limbah|daur ulang/.test(words))ideas=[['Eco Creator: Mengubah Sampah Menjadi Karya','Merancang produk bermanfaat dari sampah terpilah.','Mudah'],['Mini Waste Sorter: Alat Pemilah Sampah Sederhana','Membuat model pemilah sampah berdasarkan karakteristik bahan.','Sedang'],['EcoBrick: Bata Ramah Lingkungan','Menguji pemanfaatan plastik bersih sebagai bahan isian ecobrick.','Mudah'],['Komposter Mini dari Sampah Organik','Membuat alat pengomposan sederhana dan mengamati perubahan bahan.','Sedang'],['Kebun Vertikal dari Barang Bekas','Merancang sistem tanam vertikal dari wadah bekas.','Mudah']];
+else if(/air|gambut|keruh|banjir|saluran/.test(words))ideas=[['Filter Air Sederhana: Air Lebih Jernih','Merancang penyaring berlapis dan membandingkan kejernihan air sebelum-sesudah.','Sedang'],['Rain Saver: Penampung Air Hujan Mini','Membuat model penampung air hujan untuk kebutuhan tanaman.','Mudah'],['Water Flow Model: Saluran Anti-Genangan','Menguji bentuk dan kemiringan saluran pada model sederhana.','Sedang'],['Jelajah Daya Serap Tanah','Membandingkan kemampuan beberapa jenis tanah menyerap air.','Mudah'],['Irigasi Tetes Hemat Air','Merancang alat penyiraman tetes dari bahan sederhana.','Mudah']];
+else if(/tanam|layu|siram|kebun/.test(words))ideas=[['Smart Watering: Penyiram Tanaman Otomatis Sederhana','Membuat model penyiram berdasarkan kondisi kelembapan media.','Sedang'],['Irigasi Tetes Hemat Air','Merancang penyaluran air perlahan ke akar tanaman.','Mudah'],['Greenhouse Mini','Membuat model rumah tanaman dan mengamati kondisi di dalamnya.','Sedang'],['Pot Self-Watering dari Barang Bekas','Menguji rancangan pot dengan sistem sumbu.','Mudah'],['Kebun Vertikal Sekolah','Merancang kebun hemat ruang dengan perhitungan kebutuhan bahan.','Mudah']];
+else ideas=[['Smart Solution: Rancang Alat Bantu Sederhana','Mengidentifikasi kebutuhan dan merancang alat bantu dari bahan aman.','Sedang'],['Miniatur Solusi untuk Lingkungan Sekolah','Membuat model solusi berdasarkan hasil observasi lingkungan.','Mudah'],['Eksperimen Sains dalam Kehidupan Sehari-hari','Menguji beberapa alternatif solusi melalui percobaan sederhana.','Mudah'],['Teknologi Tepat Guna untuk Sekitar Kita','Merancang teknologi sederhana yang menjawab masalah yang ditemukan.','Menantang'],['Matematika untuk Merancang Solusi','Menggunakan pengukuran, perbandingan, dan perhitungan dalam membuat produk.','Sedang']];
+if(regen)ideas=ideas.slice(2).concat(ideas.slice(0,2));state.ideas=ideas.map((x,i)=>({title:x[0],desc:x[1],difficulty:x[2]}));state.selected=null;renderIdeas();go(3)}
+function renderIdeas(){$('ideaList').innerHTML=state.ideas.map((x,i)=>`<button class="idea ${state.selected===i?'selected':''}" onclick="chooseIdea(${i})"><span class="tag">REKOMENDASI ${i+1}</span><span class="tag">${x.difficulty}</span><h3>${x.title}</h3><p>${x.desc}</p><small>${state.grade} • Proyek kontekstual</small></button>`).join('')}
+function chooseIdea(i){state.selected=i;renderIdeas()}
+function nextFromIdea(){if(state.selected===null)return alert('Pilih salah satu judul rekomendasi.');go(4)}
+function finishSetup(){state.meetings=Math.max(1,parseInt($('meetings').value)||3);state.jp=Math.max(1,parseInt($('jp').value)||2);state.minutes=Math.max(15,parseInt($('minutes').value)||35);renderSummary();go(5);saveState()}
+function project(){return state.ideas[state.selected]||{title:'Proyek STEM',desc:''}}
+function renderSummary(){let p=project();$('summary').innerHTML=[['JUDUL PROYEK',p.title],['JENJANG',state.level+' • '+state.grade],['PERTEMUAN',state.meetings+' kali'],['ALOKASI',state.jp+' JP / pertemuan']].map(x=>`<div class="stat"><small>${x[0]}</small><strong>${x[1]}</strong></div>`).join('')}
+function editProject(){go(2)}
+function safe(s){return String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function getStages(i){let count=state.meetings;return stages[Math.min(stages.length-1,Math.floor(i*stages.length/count))]}
+function moduleHTML(){let p=project(),rows='';for(let i=0;i<state.meetings;i++)rows+=`<tr><td>${i+1}</td><td>${getStages(i)}</td><td>${state.jp} JP (${state.jp*state.minutes} menit)</td><td>${activity(i)}</td><td>${evidence(i)}</td></tr>`;
+return `<h2>MODUL KEGIATAN STEM</h2><h3>${safe(p.title)}</h3><p><b>Jenjang/Kelas:</b> ${safe(state.level)} / ${safe(state.grade)}<br><b>Masalah:</b> ${safe(state.problem)}<br><b>Konteks:</b> ${safe(state.context||'-')}<br><b>Jumlah pertemuan:</b> ${state.meetings}</p>
+<h3>A. Latar Belakang</h3><p>Kegiatan ini berangkat dari permasalahan: ${safe(state.problem)}. Peserta didik diajak mengamati kondisi nyata, mengumpulkan informasi, merancang alternatif solusi, membuat dan menguji produk, kemudian mengomunikasikan hasilnya.</p>
+<h3>B. Tujuan Kegiatan</h3><ol><li>Mengidentifikasi masalah dan penyebabnya melalui observasi.</li><li>Menghubungkan konsep sains, teknologi, rekayasa, dan matematika untuk merancang solusi.</li><li>Membuat dan menguji purwarupa sesuai kemampuan kelas.</li><li>Mengevaluasi hasil serta menyampaikan proses dan solusi.</li></ol>
+<h3>C. Integrasi STEM</h3><ul><li><b>Science:</b> memahami konsep dan fenomena yang berkaitan dengan masalah.</li><li><b>Technology:</b> memanfaatkan alat, bahan, dan teknologi sederhana secara tepat.</li><li><b>Engineering:</b> merancang, membuat, menguji, dan memperbaiki purwarupa.</li><li><b>Mathematics:</b> melakukan pengukuran, pencatatan data, perbandingan, dan perhitungan.</li></ul>
+<h3>D. Alat dan Bahan (contoh awal)</h3><ul><li>Kardus/kertas bekas dan bahan daur ulang yang bersih.</li><li>Gunting aman, penggaris, pensil, lem, selotip.</li><li>Bahan utama sesuai rancangan proyek: ${safe(p.title)}.</li><li>LKPD, alat dokumentasi, dan perlengkapan keselamatan sesuai kebutuhan.</li></ul>
+<h3>E. Perkiraan Biaya</h3><table><tr><th>Komponen</th><th>Perkiraan biaya</th></tr><tr><td>Bahan utama dan bahan pendukung</td><td>Rp25.000–Rp75.000</td></tr><tr><td>Alat habis pakai dan dokumentasi</td><td>Rp10.000–Rp25.000</td></tr><tr><th>Total perkiraan</th><th>Rp35.000–Rp100.000</th></tr></table><p><i>Catatan: angka merupakan estimasi awal, sesuaikan dengan harga lokal, jumlah kelompok, dan bahan yang tersedia.</i></p>
+<h3>F. Tahapan Pelaksanaan</h3><table><tr><th>Pertemuan</th><th>Tahap</th><th>Alokasi</th><th>Aktivitas inti</th><th>Produk/bukti</th></tr>${rows}</table>
+<h3>G. Asesmen</h3><ul><li><b>Diagnostik:</b> diskusi awal tentang pengalaman dan pengetahuan peserta didik terkait masalah.</li><li><b>Formatif:</b> observasi kolaborasi, ketepatan rancangan, catatan eksperimen, dan umpan balik selama proses.</li><li><b>Sumatif:</b> penilaian produk, penjelasan hubungan STEM, proses pengujian, dan presentasi.</li></ul>
+<h3>H. Rubrik Ringkas</h3><table><tr><th>Aspek</th><th>Indikator</th><th>Skor 1–4</th></tr><tr><td>Identifikasi masalah</td><td>Ketepatan menjelaskan masalah dan kebutuhan</td><td>...</td></tr><tr><td>Rancangan</td><td>Kesesuaian ide, sketsa, alat, dan bahan</td><td>...</td></tr><tr><td>Proses rekayasa</td><td>Membuat, menguji, dan memperbaiki produk</td><td>...</td></tr><tr><td>Kolaborasi & komunikasi</td><td>Kerja sama dan penyampaian hasil</td><td>...</td></tr></table>
+<h3>I. Keselamatan dan Diferensiasi</h3><p>Gunakan bahan aman, bersih, dan sesuai usia. Guru mengawasi penggunaan alat potong atau alat listrik. Sediakan pilihan tugas sesuai kesiapan peserta didik: menggambar, merakit, mengukur, mencatat, atau mempresentasikan.</p>
+<h3>J. Refleksi</h3><p>Apa masalah yang berhasil dipahami? Bagaimana solusi yang dibuat bekerja? Apa yang perlu diperbaiki? Konsep STEM apa yang digunakan?</p>`}
+function activity(i){let a=['Mengamati masalah, berdiskusi, mengajukan pertanyaan, dan mencatat kondisi awal.','Mengumpulkan informasi, mengamati contoh, mengukur, dan menganalisis kebutuhan solusi.','Membuat beberapa ide, memilih solusi, menggambar sketsa, serta menentukan alat dan bahan.','Membuat purwarupa, melakukan uji coba, mencatat hasil, dan memperbaiki rancangan.','Menguji hasil akhir, membandingkan dengan kriteria, menyusun laporan, dan mempresentasikan solusi.'];return a[Math.min(4,Math.floor(i*5/state.meetings))]}
+function evidence(i){let e=['Catatan observasi dan rumusan masalah','Data pengamatan dan hasil diskusi','Sketsa/desain serta daftar alat bahan','Purwarupa dan lembar hasil pengujian','Produk akhir, laporan, dan presentasi'];return e[Math.min(4,Math.floor(i*5/state.meetings))]}
+function moderationHTML(){let rows='';for(let i=0;i<state.meetings;i++)rows+=`<tr><td>${i+1}</td><td>${getStages(i)}</td><td>Guru kelas / guru bidang terkait</td><td>${activity(i)}</td><td>${state.jp} JP</td><td>${activity(i)} Guru memfasilitasi diskusi, memberi penguatan konsep, dan mendokumentasikan proses.</td><td>${evidence(i)}</td></tr>`;return `<h2>TABEL MODERASI PELAKSANAAN KEGIATAN STEM</h2><h3>${safe(project().title)}</h3><p>${safe(state.level)} • ${safe(state.grade)} • ${state.meetings} pertemuan</p><table><tr><th>Pertemuan</th><th>Tahap</th><th>Pengampu</th><th>Fokus kegiatan</th><th>Alokasi</th><th>Rincian aktivitas inti</th><th>Produk/Bukti</th></tr>${rows}</table><p><b>Catatan:</b> Pengampu dapat disesuaikan dengan struktur tim guru di satuan pendidikan. Rincian kegiatan dapat disesuaikan dengan kondisi kelas.</p>`}
+function lkpdHTML(){let out=`<h2>KUMPULAN PROMPT DESAIN LKPD STEM</h2><h3>${safe(project().title)}</h3><p>Jenjang: ${safe(state.level)} • ${safe(state.grade)} • Jumlah: ${state.meetings} LKPD</p>`;for(let i=0;i<state.meetings;i++){out+=`<h3>LKPD PERTEMUAN ${i+1}</h3><p><b>Prompt siap salin ke AI desain:</b></p><blockquote>Buat desain Lembar Kerja Peserta Didik (LKPD) ukuran A4 portrait untuk ${safe(state.grade)} ${safe(state.level)} dengan tema proyek STEM "${safe(project().title)}". Tahap kegiatan: ${getStages(i)}. Masalah kontekstual: ${safe(state.problem)}. Tujuan: peserta didik mampu ${activity(i).toLowerCase()} Buat tampilan edukatif, menarik, sesuai usia, ilustrasi 3D animation ramah anak, tipografi jelas, tata letak rapi, ruang menulis dan menggambar yang cukup, serta tidak terlalu ramai. Sertakan identitas nama, kelas, tanggal; tujuan; petunjuk; pertanyaan pemantik; langkah kerja; tabel pengamatan bila relevan; ruang sketsa/hasil; pertanyaan analisis; kesimpulan; dan refleksi. Pastikan seluruh teks berbahasa Indonesia yang benar, tidak terpotong, dan siap dicetak.</blockquote><p><b>Aktivitas inti:</b> ${activity(i)}</p><p><b>Produk/bukti:</b> ${evidence(i)}</p>`}return out}
+function posterDownload(){let c=document.createElement('canvas');c.width=1000;c.height=2000;let x=c.getContext('2d');x.fillStyle='#ffffff';x.fillRect(0,0,1000,2000);let grad=x.createLinearGradient(0,0,1000,240);grad.addColorStop(0,'#192a67');grad.addColorStop(1,'#7254bd');x.fillStyle=grad;x.fillRect(0,0,1000,250);x.fillStyle='#ffffff';x.textAlign='center';x.font='bold 54px Arial';wrapCanvas(x,project().title.toUpperCase(),500,83,850,65);x.font='bold 32px Arial';x.fillText(state.grade+' • '+state.level,500,215);x.fillStyle='#fff';x.fillRect(0,250,1000,1500);x.strokeStyle='#e6eaf3';x.lineWidth=4;x.strokeRect(28,278,944,1444);x.fillStyle=grad;x.fillRect(0,1750,1000,250);x.fillStyle='#fff';x.font='bold 35px Arial';x.fillText('POJOK BACA • JELAJAHI IDE STEM!',500,1840);x.font='28px Arial';x.fillText('Amati • Rancang • Uji • Ciptakan',500,1900);x.textAlign='left';x.font='24px Arial';x.fillText('Area tengah sengaja dikosongkan untuk materi bacaan',60,1680);let a=document.createElement('a');a.download='Pojok-Baca-STEM.jpg';a.href=c.toDataURL('image/jpeg',.95);a.click()}
+function wrapCanvas(ctx,text,cx,y,maxWidth,lineHeight){let words=text.split(' '),line='';let lines=[];for(let w of words){let test=line?line+' '+w:w;if(ctx.measureText(test).width>maxWidth&&line){lines.push(line);line=w}else line=test}if(line)lines.push(line);lines.slice(0,2).forEach((l,i)=>ctx.fillText(l,cx,y+i*lineHeight))}
+function openOutput(type){let html,title,desc,download;if(type==='module'){html=moduleHTML();title='Modul Ajar STEM';desc='Pratinjau modul kegiatan. Unduhan dibuat sebagai dokumen Word-compatible (.doc) yang dapat dibuka dan diedit di Microsoft Word.';download=()=>downloadWord('Modul-Ajar-STEM',html)}
+if(type==='moderation'){html=moderationHTML();title='Tabel Moderasi';desc='Rencana kegiatan per pertemuan. Unduh dan sesuaikan pengampu serta rincian aktivitas.';download=()=>downloadWord('Tabel-Moderasi-STEM',html)}
+if(type==='lkpd'){html=lkpdHTML();title='Prompt LKPD';desc='Setiap pertemuan memiliki prompt desain LKPD tersendiri.';download=()=>downloadWord('Prompt-LKPD-STEM',html)}
+if(type==='poster'){html=`<h2>POSTER POJOK BACA</h2><p>Poster vertikal rasio 1:2. Area putih tengah disediakan untuk menempelkan materi bacaan.</p><p><b>${safe(project().title)}</b><br>${safe(state.grade)} • ${safe(state.level)}</p><div style="height:280px;background:linear-gradient(120deg,#192a67,#7254bd);color:white;display:grid;place-items:center;text-align:center;border-radius:12px"><h2>${safe(project().title)}<br>${safe(state.grade)}</h2></div><div style="height:450px;background:white;border:2px solid #e5e9f3;display:grid;place-items:center;color:#aab2c4">AREA PUTIH KOSONG UNTUK MATERI (±75%)</div><div style="height:120px;background:#5147a5;color:white;display:grid;place-items:center">POJOK BACA • JELAJAHI IDE STEM!</div>`;title='Poster Pojok Baca';desc='Pratinjau komposisi poster. File JPG dibuat dalam rasio 1:2.';download=posterDownload}
+$('outputTitle').textContent=title;$('outputDesc').textContent=desc;$('preview').innerHTML=html;$('downloadBtn').textContent=type==='poster'?'Unduh JPG':'Unduh Word';$('downloadBtn').onclick=download;go(6)}
+function downloadWord(name,content){let full=`<!DOCTYPE html><html><head><meta charset="utf-8"><style>body{font-family:Arial,sans-serif;line-height:1.5;color:#222}h2{color:#243b80}h3{color:#344b91;margin-top:22px}table{border-collapse:collapse;width:100%;font-size:10pt}td,th{border:1px solid #777;padding:7px;vertical-align:top}th{background:#dce5ff}blockquote{background:#f2f4fa;padding:12px;border-left:4px solid #5369d9}</style></head><body>${content}<p><i>Dibuat menggunakan STEM GENERATOR AI.</i></p></body></html>`;let blob=new Blob(['\ufeff',full],{type:'application/msword'});let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name+'.doc';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1500)}
+function saveState(){try{localStorage.setItem('stemGeneratorState',JSON.stringify(state))}catch(e){}}
+buildClasses();
+</script>
+</body>
+</html>
